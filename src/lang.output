@@ -1,0 +1,1865 @@
+Terminals unused in grammar
+
+   UNTIL
+
+
+Grammar
+
+    0 $accept: lcc $end
+
+    1 lcc: return_list_fun return_list_reg return_list block free_lists
+
+    2 return_list_fun: %empty
+
+    3 return_list_reg: %empty
+
+    4 return_list: %empty
+
+    5 block: decl block
+    6      | inst block
+    7      | %empty
+
+    8 decl: var_decl PV
+    9     | fun_decl
+
+   10 var_decl: type vlist
+
+   11 fun_decl: type fun fun_body
+
+   12 fun: fun_head
+
+   13 fun_head: ID PO PF
+   14         | ID PO param_list PF
+
+   15 fun_body: AO block AF
+
+   16 type: typename pointer
+   17     | typename
+
+   18 typename: INT
+   19         | FLOAT
+   20         | VOID
+
+   21 pointer: STAR pointer
+   22        | STAR
+
+   23 param_list: param_list vir type ID
+   24           | type ID
+
+   25 vlist: vlist vir ID
+   26      | ID
+
+   27 vir: VIR
+
+   28 inst: exp PV
+
+   29 $@1: %empty
+
+   30 inst: AO $@1 block AF
+   31     | cond
+   32     | loop
+   33     | aff
+   34     | ret
+   35     | PV
+
+   36 $@2: %empty
+
+   37 loop: while PO bool PF DO $@2 AO block AF
+   38     | do AO block AF WHILE PO bool PF PV
+
+   39 while: WHILE
+
+   40 do: DO
+
+   41 fun_app: ID PO args PF
+
+   42 args: arglist
+   43     | %empty
+
+   44 $@3: %empty
+
+   45 arglist: ID $@3 VIR arglist
+   46        | ID
+
+   47 aff: ID EQ exp PV
+
+   48 ret: RETURN PV
+   49    | RETURN exp PV
+
+   50 cond: if bool_cond inst
+   51     | if bool_cond inst else inst
+
+   52 bool_cond: PO bool PF
+
+   53 if: IF
+
+   54 else: ELSE
+
+   55 bool: exp INF exp
+   56     | exp SUP exp
+   57     | exp EQUAL exp
+   58     | exp DIFF exp
+
+   59 $@4: %empty
+
+   60 bool: bool AND $@4 bool
+
+   61 $@5: %empty
+
+   62 bool: bool OR $@5 bool
+   63     | NOT bool
+   64     | PO bool PF
+
+   65 exp: MOINS exp
+   66    | exp PLUS exp
+   67    | exp MOINS exp
+   68    | exp STAR exp
+   69    | exp DIV exp
+   70    | PO exp PF
+   71    | ID
+   72    | CONSTANTI
+   73    | CONSTANTF
+   74    | fun_app
+
+   75 free_lists: %empty
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+CONSTANTI (258) 72
+CONSTANTF (259) 73
+ID (260) 13 14 23 24 25 26 41 45 46 47 71
+IF (261) 53
+ELSE (262) 54
+INT (263) 18
+FLOAT (264) 19
+VOID (265) 20
+VIR (266) 27 45
+PV (267) 8 28 35 38 47 48 49
+AO (268) 15 30 37 38
+AF (269) 15 30 37 38
+PO (270) 13 14 37 38 41 52 64 70
+PF (271) 13 14 37 38 41 52 64 70
+UNTIL (272)
+DO (273) 37 40
+WHILE (274) 38 39
+RETURN (275) 48 49
+PLUS (276) 66
+MOINS (277) 65 67
+STAR (278) 21 22 68
+DIV (279) 69
+EQ (280) 47
+INF (281) 55
+EQUAL (282) 57
+SUP (283) 56
+DIFF (284) 58
+AND (285) 60
+OR (286) 62
+NOT (287) 63
+UNA (288)
+
+
+Nonterminals, with rules where they appear
+
+$accept (34)
+    on left: 0
+lcc (35)
+    on left: 1, on right: 0
+return_list_fun (36)
+    on left: 2, on right: 1
+return_list_reg (37)
+    on left: 3, on right: 1
+return_list (38)
+    on left: 4, on right: 1
+block (39)
+    on left: 5 6 7, on right: 1 5 6 15 30 37 38
+decl (40)
+    on left: 8 9, on right: 5
+var_decl (41)
+    on left: 10, on right: 8
+fun_decl (42)
+    on left: 11, on right: 9
+fun (43)
+    on left: 12, on right: 11
+fun_head (44)
+    on left: 13 14, on right: 12
+fun_body (45)
+    on left: 15, on right: 11
+type (46)
+    on left: 16 17, on right: 10 11 23 24
+typename (47)
+    on left: 18 19 20, on right: 16 17
+pointer (48)
+    on left: 21 22, on right: 16 21
+param_list (49)
+    on left: 23 24, on right: 14 23
+vlist (50)
+    on left: 25 26, on right: 10 25
+vir (51)
+    on left: 27, on right: 23 25
+inst (52)
+    on left: 28 30 31 32 33 34 35, on right: 6 50 51
+$@1 (53)
+    on left: 29, on right: 30
+loop (54)
+    on left: 37 38, on right: 32
+$@2 (55)
+    on left: 36, on right: 37
+while (56)
+    on left: 39, on right: 37
+do (57)
+    on left: 40, on right: 38
+fun_app (58)
+    on left: 41, on right: 74
+args (59)
+    on left: 42 43, on right: 41
+arglist (60)
+    on left: 45 46, on right: 42 45
+$@3 (61)
+    on left: 44, on right: 45
+aff (62)
+    on left: 47, on right: 33
+ret (63)
+    on left: 48 49, on right: 34
+cond (64)
+    on left: 50 51, on right: 31
+bool_cond (65)
+    on left: 52, on right: 50 51
+if (66)
+    on left: 53, on right: 50 51
+else (67)
+    on left: 54, on right: 51
+bool (68)
+    on left: 55 56 57 58 60 62 63 64, on right: 37 38 52 60 62 63 64
+$@4 (69)
+    on left: 59, on right: 60
+$@5 (70)
+    on left: 61, on right: 62
+exp (71)
+    on left: 65 66 67 68 69 70 71 72 73 74, on right: 28 47 49 55 56
+    57 58 65 66 67 68 69 70
+free_lists (72)
+    on left: 75, on right: 1
+
+
+State 0
+
+    0 $accept: . lcc $end
+
+    $default  reduce using rule 2 (return_list_fun)
+
+    lcc              go to state 1
+    return_list_fun  go to state 2
+
+
+State 1
+
+    0 $accept: lcc . $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 lcc: return_list_fun . return_list_reg return_list block free_lists
+
+    $default  reduce using rule 3 (return_list_reg)
+
+    return_list_reg  go to state 4
+
+
+State 3
+
+    0 $accept: lcc $end .
+
+    $default  accept
+
+
+State 4
+
+    1 lcc: return_list_fun return_list_reg . return_list block free_lists
+
+    $default  reduce using rule 4 (return_list)
+
+    return_list  go to state 5
+
+
+State 5
+
+    1 lcc: return_list_fun return_list_reg return_list . block free_lists
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 8
+    IF         shift, and go to state 9
+    INT        shift, and go to state 10
+    FLOAT      shift, and go to state 11
+    VOID       shift, and go to state 12
+    PV         shift, and go to state 13
+    AO         shift, and go to state 14
+    PO         shift, and go to state 15
+    DO         shift, and go to state 16
+    WHILE      shift, and go to state 17
+    RETURN     shift, and go to state 18
+    MOINS      shift, and go to state 19
+
+    $default  reduce using rule 7 (block)
+
+    block     go to state 20
+    decl      go to state 21
+    var_decl  go to state 22
+    fun_decl  go to state 23
+    type      go to state 24
+    typename  go to state 25
+    inst      go to state 26
+    loop      go to state 27
+    while     go to state 28
+    do        go to state 29
+    fun_app   go to state 30
+    aff       go to state 31
+    ret       go to state 32
+    cond      go to state 33
+    if        go to state 34
+    exp       go to state 35
+
+
+State 6
+
+   72 exp: CONSTANTI .
+
+    $default  reduce using rule 72 (exp)
+
+
+State 7
+
+   73 exp: CONSTANTF .
+
+    $default  reduce using rule 73 (exp)
+
+
+State 8
+
+   41 fun_app: ID . PO args PF
+   47 aff: ID . EQ exp PV
+   71 exp: ID .
+
+    PO  shift, and go to state 36
+    EQ  shift, and go to state 37
+
+    $default  reduce using rule 71 (exp)
+
+
+State 9
+
+   53 if: IF .
+
+    $default  reduce using rule 53 (if)
+
+
+State 10
+
+   18 typename: INT .
+
+    $default  reduce using rule 18 (typename)
+
+
+State 11
+
+   19 typename: FLOAT .
+
+    $default  reduce using rule 19 (typename)
+
+
+State 12
+
+   20 typename: VOID .
+
+    $default  reduce using rule 20 (typename)
+
+
+State 13
+
+   35 inst: PV .
+
+    $default  reduce using rule 35 (inst)
+
+
+State 14
+
+   30 inst: AO . $@1 block AF
+
+    $default  reduce using rule 29 ($@1)
+
+    $@1  go to state 38
+
+
+State 15
+
+   70 exp: PO . exp PF
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 40
+
+
+State 16
+
+   40 do: DO .
+
+    $default  reduce using rule 40 (do)
+
+
+State 17
+
+   39 while: WHILE .
+
+    $default  reduce using rule 39 (while)
+
+
+State 18
+
+   48 ret: RETURN . PV
+   49    | RETURN . exp PV
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PV         shift, and go to state 41
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 42
+
+
+State 19
+
+   65 exp: MOINS . exp
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 43
+
+
+State 20
+
+    1 lcc: return_list_fun return_list_reg return_list block . free_lists
+
+    $default  reduce using rule 75 (free_lists)
+
+    free_lists  go to state 44
+
+
+State 21
+
+    5 block: decl . block
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 8
+    IF         shift, and go to state 9
+    INT        shift, and go to state 10
+    FLOAT      shift, and go to state 11
+    VOID       shift, and go to state 12
+    PV         shift, and go to state 13
+    AO         shift, and go to state 14
+    PO         shift, and go to state 15
+    DO         shift, and go to state 16
+    WHILE      shift, and go to state 17
+    RETURN     shift, and go to state 18
+    MOINS      shift, and go to state 19
+
+    $default  reduce using rule 7 (block)
+
+    block     go to state 45
+    decl      go to state 21
+    var_decl  go to state 22
+    fun_decl  go to state 23
+    type      go to state 24
+    typename  go to state 25
+    inst      go to state 26
+    loop      go to state 27
+    while     go to state 28
+    do        go to state 29
+    fun_app   go to state 30
+    aff       go to state 31
+    ret       go to state 32
+    cond      go to state 33
+    if        go to state 34
+    exp       go to state 35
+
+
+State 22
+
+    8 decl: var_decl . PV
+
+    PV  shift, and go to state 46
+
+
+State 23
+
+    9 decl: fun_decl .
+
+    $default  reduce using rule 9 (decl)
+
+
+State 24
+
+   10 var_decl: type . vlist
+   11 fun_decl: type . fun fun_body
+
+    ID  shift, and go to state 47
+
+    fun       go to state 48
+    fun_head  go to state 49
+    vlist     go to state 50
+
+
+State 25
+
+   16 type: typename . pointer
+   17     | typename .
+
+    STAR  shift, and go to state 51
+
+    $default  reduce using rule 17 (type)
+
+    pointer  go to state 52
+
+
+State 26
+
+    6 block: inst . block
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 8
+    IF         shift, and go to state 9
+    INT        shift, and go to state 10
+    FLOAT      shift, and go to state 11
+    VOID       shift, and go to state 12
+    PV         shift, and go to state 13
+    AO         shift, and go to state 14
+    PO         shift, and go to state 15
+    DO         shift, and go to state 16
+    WHILE      shift, and go to state 17
+    RETURN     shift, and go to state 18
+    MOINS      shift, and go to state 19
+
+    $default  reduce using rule 7 (block)
+
+    block     go to state 53
+    decl      go to state 21
+    var_decl  go to state 22
+    fun_decl  go to state 23
+    type      go to state 24
+    typename  go to state 25
+    inst      go to state 26
+    loop      go to state 27
+    while     go to state 28
+    do        go to state 29
+    fun_app   go to state 30
+    aff       go to state 31
+    ret       go to state 32
+    cond      go to state 33
+    if        go to state 34
+    exp       go to state 35
+
+
+State 27
+
+   32 inst: loop .
+
+    $default  reduce using rule 32 (inst)
+
+
+State 28
+
+   37 loop: while . PO bool PF DO $@2 AO block AF
+
+    PO  shift, and go to state 54
+
+
+State 29
+
+   38 loop: do . AO block AF WHILE PO bool PF PV
+
+    AO  shift, and go to state 55
+
+
+State 30
+
+   74 exp: fun_app .
+
+    $default  reduce using rule 74 (exp)
+
+
+State 31
+
+   33 inst: aff .
+
+    $default  reduce using rule 33 (inst)
+
+
+State 32
+
+   34 inst: ret .
+
+    $default  reduce using rule 34 (inst)
+
+
+State 33
+
+   31 inst: cond .
+
+    $default  reduce using rule 31 (inst)
+
+
+State 34
+
+   50 cond: if . bool_cond inst
+   51     | if . bool_cond inst else inst
+
+    PO  shift, and go to state 56
+
+    bool_cond  go to state 57
+
+
+State 35
+
+   28 inst: exp . PV
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    PV     shift, and go to state 58
+    PLUS   shift, and go to state 59
+    MOINS  shift, and go to state 60
+    STAR   shift, and go to state 61
+    DIV    shift, and go to state 62
+
+
+State 36
+
+   41 fun_app: ID PO . args PF
+
+    ID  shift, and go to state 63
+
+    $default  reduce using rule 43 (args)
+
+    args     go to state 64
+    arglist  go to state 65
+
+
+State 37
+
+   47 aff: ID EQ . exp PV
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 66
+
+
+State 38
+
+   30 inst: AO $@1 . block AF
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 8
+    IF         shift, and go to state 9
+    INT        shift, and go to state 10
+    FLOAT      shift, and go to state 11
+    VOID       shift, and go to state 12
+    PV         shift, and go to state 13
+    AO         shift, and go to state 14
+    PO         shift, and go to state 15
+    DO         shift, and go to state 16
+    WHILE      shift, and go to state 17
+    RETURN     shift, and go to state 18
+    MOINS      shift, and go to state 19
+
+    $default  reduce using rule 7 (block)
+
+    block     go to state 67
+    decl      go to state 21
+    var_decl  go to state 22
+    fun_decl  go to state 23
+    type      go to state 24
+    typename  go to state 25
+    inst      go to state 26
+    loop      go to state 27
+    while     go to state 28
+    do        go to state 29
+    fun_app   go to state 30
+    aff       go to state 31
+    ret       go to state 32
+    cond      go to state 33
+    if        go to state 34
+    exp       go to state 35
+
+
+State 39
+
+   41 fun_app: ID . PO args PF
+   71 exp: ID .
+
+    PO  shift, and go to state 36
+
+    $default  reduce using rule 71 (exp)
+
+
+State 40
+
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+   70    | PO exp . PF
+
+    PF     shift, and go to state 68
+    PLUS   shift, and go to state 59
+    MOINS  shift, and go to state 60
+    STAR   shift, and go to state 61
+    DIV    shift, and go to state 62
+
+
+State 41
+
+   48 ret: RETURN PV .
+
+    $default  reduce using rule 48 (ret)
+
+
+State 42
+
+   49 ret: RETURN exp . PV
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    PV     shift, and go to state 69
+    PLUS   shift, and go to state 59
+    MOINS  shift, and go to state 60
+    STAR   shift, and go to state 61
+    DIV    shift, and go to state 62
+
+
+State 43
+
+   65 exp: MOINS exp .
+   66    | exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    $default  reduce using rule 65 (exp)
+
+
+State 44
+
+    1 lcc: return_list_fun return_list_reg return_list block free_lists .
+
+    $default  reduce using rule 1 (lcc)
+
+
+State 45
+
+    5 block: decl block .
+
+    $default  reduce using rule 5 (block)
+
+
+State 46
+
+    8 decl: var_decl PV .
+
+    $default  reduce using rule 8 (decl)
+
+
+State 47
+
+   13 fun_head: ID . PO PF
+   14         | ID . PO param_list PF
+   26 vlist: ID .
+
+    PO  shift, and go to state 70
+
+    $default  reduce using rule 26 (vlist)
+
+
+State 48
+
+   11 fun_decl: type fun . fun_body
+
+    AO  shift, and go to state 71
+
+    fun_body  go to state 72
+
+
+State 49
+
+   12 fun: fun_head .
+
+    $default  reduce using rule 12 (fun)
+
+
+State 50
+
+   10 var_decl: type vlist .
+   25 vlist: vlist . vir ID
+
+    VIR  shift, and go to state 73
+
+    $default  reduce using rule 10 (var_decl)
+
+    vir  go to state 74
+
+
+State 51
+
+   21 pointer: STAR . pointer
+   22        | STAR .
+
+    STAR  shift, and go to state 51
+
+    $default  reduce using rule 22 (pointer)
+
+    pointer  go to state 75
+
+
+State 52
+
+   16 type: typename pointer .
+
+    $default  reduce using rule 16 (type)
+
+
+State 53
+
+    6 block: inst block .
+
+    $default  reduce using rule 6 (block)
+
+
+State 54
+
+   37 loop: while PO . bool PF DO $@2 AO block AF
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 76
+    MOINS      shift, and go to state 19
+    NOT        shift, and go to state 77
+
+    fun_app  go to state 30
+    bool     go to state 78
+    exp      go to state 79
+
+
+State 55
+
+   38 loop: do AO . block AF WHILE PO bool PF PV
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 8
+    IF         shift, and go to state 9
+    INT        shift, and go to state 10
+    FLOAT      shift, and go to state 11
+    VOID       shift, and go to state 12
+    PV         shift, and go to state 13
+    AO         shift, and go to state 14
+    PO         shift, and go to state 15
+    DO         shift, and go to state 16
+    WHILE      shift, and go to state 17
+    RETURN     shift, and go to state 18
+    MOINS      shift, and go to state 19
+
+    $default  reduce using rule 7 (block)
+
+    block     go to state 80
+    decl      go to state 21
+    var_decl  go to state 22
+    fun_decl  go to state 23
+    type      go to state 24
+    typename  go to state 25
+    inst      go to state 26
+    loop      go to state 27
+    while     go to state 28
+    do        go to state 29
+    fun_app   go to state 30
+    aff       go to state 31
+    ret       go to state 32
+    cond      go to state 33
+    if        go to state 34
+    exp       go to state 35
+
+
+State 56
+
+   52 bool_cond: PO . bool PF
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 76
+    MOINS      shift, and go to state 19
+    NOT        shift, and go to state 77
+
+    fun_app  go to state 30
+    bool     go to state 81
+    exp      go to state 79
+
+
+State 57
+
+   50 cond: if bool_cond . inst
+   51     | if bool_cond . inst else inst
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 8
+    IF         shift, and go to state 9
+    PV         shift, and go to state 13
+    AO         shift, and go to state 14
+    PO         shift, and go to state 15
+    DO         shift, and go to state 16
+    WHILE      shift, and go to state 17
+    RETURN     shift, and go to state 18
+    MOINS      shift, and go to state 19
+
+    inst     go to state 82
+    loop     go to state 27
+    while    go to state 28
+    do       go to state 29
+    fun_app  go to state 30
+    aff      go to state 31
+    ret      go to state 32
+    cond     go to state 33
+    if       go to state 34
+    exp      go to state 35
+
+
+State 58
+
+   28 inst: exp PV .
+
+    $default  reduce using rule 28 (inst)
+
+
+State 59
+
+   66 exp: exp PLUS . exp
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 83
+
+
+State 60
+
+   67 exp: exp MOINS . exp
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 84
+
+
+State 61
+
+   68 exp: exp STAR . exp
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 85
+
+
+State 62
+
+   69 exp: exp DIV . exp
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 86
+
+
+State 63
+
+   45 arglist: ID . $@3 VIR arglist
+   46        | ID .
+
+    PF        reduce using rule 46 (arglist)
+    $default  reduce using rule 44 ($@3)
+
+    $@3  go to state 87
+
+
+State 64
+
+   41 fun_app: ID PO args . PF
+
+    PF  shift, and go to state 88
+
+
+State 65
+
+   42 args: arglist .
+
+    $default  reduce using rule 42 (args)
+
+
+State 66
+
+   47 aff: ID EQ exp . PV
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    PV     shift, and go to state 89
+    PLUS   shift, and go to state 59
+    MOINS  shift, and go to state 60
+    STAR   shift, and go to state 61
+    DIV    shift, and go to state 62
+
+
+State 67
+
+   30 inst: AO $@1 block . AF
+
+    AF  shift, and go to state 90
+
+
+State 68
+
+   70 exp: PO exp PF .
+
+    $default  reduce using rule 70 (exp)
+
+
+State 69
+
+   49 ret: RETURN exp PV .
+
+    $default  reduce using rule 49 (ret)
+
+
+State 70
+
+   13 fun_head: ID PO . PF
+   14         | ID PO . param_list PF
+
+    INT    shift, and go to state 10
+    FLOAT  shift, and go to state 11
+    VOID   shift, and go to state 12
+    PF     shift, and go to state 91
+
+    type        go to state 92
+    typename    go to state 25
+    param_list  go to state 93
+
+
+State 71
+
+   15 fun_body: AO . block AF
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 8
+    IF         shift, and go to state 9
+    INT        shift, and go to state 10
+    FLOAT      shift, and go to state 11
+    VOID       shift, and go to state 12
+    PV         shift, and go to state 13
+    AO         shift, and go to state 14
+    PO         shift, and go to state 15
+    DO         shift, and go to state 16
+    WHILE      shift, and go to state 17
+    RETURN     shift, and go to state 18
+    MOINS      shift, and go to state 19
+
+    $default  reduce using rule 7 (block)
+
+    block     go to state 94
+    decl      go to state 21
+    var_decl  go to state 22
+    fun_decl  go to state 23
+    type      go to state 24
+    typename  go to state 25
+    inst      go to state 26
+    loop      go to state 27
+    while     go to state 28
+    do        go to state 29
+    fun_app   go to state 30
+    aff       go to state 31
+    ret       go to state 32
+    cond      go to state 33
+    if        go to state 34
+    exp       go to state 35
+
+
+State 72
+
+   11 fun_decl: type fun fun_body .
+
+    $default  reduce using rule 11 (fun_decl)
+
+
+State 73
+
+   27 vir: VIR .
+
+    $default  reduce using rule 27 (vir)
+
+
+State 74
+
+   25 vlist: vlist vir . ID
+
+    ID  shift, and go to state 95
+
+
+State 75
+
+   21 pointer: STAR pointer .
+
+    $default  reduce using rule 21 (pointer)
+
+
+State 76
+
+   64 bool: PO . bool PF
+   70 exp: PO . exp PF
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 76
+    MOINS      shift, and go to state 19
+    NOT        shift, and go to state 77
+
+    fun_app  go to state 30
+    bool     go to state 96
+    exp      go to state 97
+
+
+State 77
+
+   63 bool: NOT . bool
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 76
+    MOINS      shift, and go to state 19
+    NOT        shift, and go to state 77
+
+    fun_app  go to state 30
+    bool     go to state 98
+    exp      go to state 79
+
+
+State 78
+
+   37 loop: while PO bool . PF DO $@2 AO block AF
+   60 bool: bool . AND $@4 bool
+   62     | bool . OR $@5 bool
+
+    PF   shift, and go to state 99
+    AND  shift, and go to state 100
+    OR   shift, and go to state 101
+
+
+State 79
+
+   55 bool: exp . INF exp
+   56     | exp . SUP exp
+   57     | exp . EQUAL exp
+   58     | exp . DIFF exp
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    PLUS   shift, and go to state 59
+    MOINS  shift, and go to state 60
+    STAR   shift, and go to state 61
+    DIV    shift, and go to state 62
+    INF    shift, and go to state 102
+    EQUAL  shift, and go to state 103
+    SUP    shift, and go to state 104
+    DIFF   shift, and go to state 105
+
+
+State 80
+
+   38 loop: do AO block . AF WHILE PO bool PF PV
+
+    AF  shift, and go to state 106
+
+
+State 81
+
+   52 bool_cond: PO bool . PF
+   60 bool: bool . AND $@4 bool
+   62     | bool . OR $@5 bool
+
+    PF   shift, and go to state 107
+    AND  shift, and go to state 100
+    OR   shift, and go to state 101
+
+
+State 82
+
+   50 cond: if bool_cond inst .
+   51     | if bool_cond inst . else inst
+
+    ELSE  shift, and go to state 108
+
+    $default  reduce using rule 50 (cond)
+
+    else  go to state 109
+
+
+State 83
+
+   66 exp: exp . PLUS exp
+   66    | exp PLUS exp .
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    STAR  shift, and go to state 61
+    DIV   shift, and go to state 62
+
+    $default  reduce using rule 66 (exp)
+
+
+State 84
+
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   67    | exp MOINS exp .
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    STAR  shift, and go to state 61
+    DIV   shift, and go to state 62
+
+    $default  reduce using rule 67 (exp)
+
+
+State 85
+
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   68    | exp STAR exp .
+   69    | exp . DIV exp
+
+    $default  reduce using rule 68 (exp)
+
+
+State 86
+
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+   69    | exp DIV exp .
+
+    $default  reduce using rule 69 (exp)
+
+
+State 87
+
+   45 arglist: ID $@3 . VIR arglist
+
+    VIR  shift, and go to state 110
+
+
+State 88
+
+   41 fun_app: ID PO args PF .
+
+    $default  reduce using rule 41 (fun_app)
+
+
+State 89
+
+   47 aff: ID EQ exp PV .
+
+    $default  reduce using rule 47 (aff)
+
+
+State 90
+
+   30 inst: AO $@1 block AF .
+
+    $default  reduce using rule 30 (inst)
+
+
+State 91
+
+   13 fun_head: ID PO PF .
+
+    $default  reduce using rule 13 (fun_head)
+
+
+State 92
+
+   24 param_list: type . ID
+
+    ID  shift, and go to state 111
+
+
+State 93
+
+   14 fun_head: ID PO param_list . PF
+   23 param_list: param_list . vir type ID
+
+    VIR  shift, and go to state 73
+    PF   shift, and go to state 112
+
+    vir  go to state 113
+
+
+State 94
+
+   15 fun_body: AO block . AF
+
+    AF  shift, and go to state 114
+
+
+State 95
+
+   25 vlist: vlist vir ID .
+
+    $default  reduce using rule 25 (vlist)
+
+
+State 96
+
+   60 bool: bool . AND $@4 bool
+   62     | bool . OR $@5 bool
+   64     | PO bool . PF
+
+    PF   shift, and go to state 115
+    AND  shift, and go to state 100
+    OR   shift, and go to state 101
+
+
+State 97
+
+   55 bool: exp . INF exp
+   56     | exp . SUP exp
+   57     | exp . EQUAL exp
+   58     | exp . DIFF exp
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+   70    | PO exp . PF
+
+    PF     shift, and go to state 68
+    PLUS   shift, and go to state 59
+    MOINS  shift, and go to state 60
+    STAR   shift, and go to state 61
+    DIV    shift, and go to state 62
+    INF    shift, and go to state 102
+    EQUAL  shift, and go to state 103
+    SUP    shift, and go to state 104
+    DIFF   shift, and go to state 105
+
+
+State 98
+
+   60 bool: bool . AND $@4 bool
+   62     | bool . OR $@5 bool
+   63     | NOT bool .
+
+    AND  shift, and go to state 100
+    OR   shift, and go to state 101
+
+    $default  reduce using rule 63 (bool)
+
+
+State 99
+
+   37 loop: while PO bool PF . DO $@2 AO block AF
+
+    DO  shift, and go to state 116
+
+
+State 100
+
+   60 bool: bool AND . $@4 bool
+
+    $default  reduce using rule 59 ($@4)
+
+    $@4  go to state 117
+
+
+State 101
+
+   62 bool: bool OR . $@5 bool
+
+    $default  reduce using rule 61 ($@5)
+
+    $@5  go to state 118
+
+
+State 102
+
+   55 bool: exp INF . exp
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 119
+
+
+State 103
+
+   57 bool: exp EQUAL . exp
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 120
+
+
+State 104
+
+   56 bool: exp SUP . exp
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 121
+
+
+State 105
+
+   58 bool: exp DIFF . exp
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 15
+    MOINS      shift, and go to state 19
+
+    fun_app  go to state 30
+    exp      go to state 122
+
+
+State 106
+
+   38 loop: do AO block AF . WHILE PO bool PF PV
+
+    WHILE  shift, and go to state 123
+
+
+State 107
+
+   52 bool_cond: PO bool PF .
+
+    $default  reduce using rule 52 (bool_cond)
+
+
+State 108
+
+   54 else: ELSE .
+
+    $default  reduce using rule 54 (else)
+
+
+State 109
+
+   51 cond: if bool_cond inst else . inst
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 8
+    IF         shift, and go to state 9
+    PV         shift, and go to state 13
+    AO         shift, and go to state 14
+    PO         shift, and go to state 15
+    DO         shift, and go to state 16
+    WHILE      shift, and go to state 17
+    RETURN     shift, and go to state 18
+    MOINS      shift, and go to state 19
+
+    inst     go to state 124
+    loop     go to state 27
+    while    go to state 28
+    do       go to state 29
+    fun_app  go to state 30
+    aff      go to state 31
+    ret      go to state 32
+    cond     go to state 33
+    if       go to state 34
+    exp      go to state 35
+
+
+State 110
+
+   45 arglist: ID $@3 VIR . arglist
+
+    ID  shift, and go to state 63
+
+    arglist  go to state 125
+
+
+State 111
+
+   24 param_list: type ID .
+
+    $default  reduce using rule 24 (param_list)
+
+
+State 112
+
+   14 fun_head: ID PO param_list PF .
+
+    $default  reduce using rule 14 (fun_head)
+
+
+State 113
+
+   23 param_list: param_list vir . type ID
+
+    INT    shift, and go to state 10
+    FLOAT  shift, and go to state 11
+    VOID   shift, and go to state 12
+
+    type      go to state 126
+    typename  go to state 25
+
+
+State 114
+
+   15 fun_body: AO block AF .
+
+    $default  reduce using rule 15 (fun_body)
+
+
+State 115
+
+   64 bool: PO bool PF .
+
+    $default  reduce using rule 64 (bool)
+
+
+State 116
+
+   37 loop: while PO bool PF DO . $@2 AO block AF
+
+    $default  reduce using rule 36 ($@2)
+
+    $@2  go to state 127
+
+
+State 117
+
+   60 bool: bool AND $@4 . bool
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 76
+    MOINS      shift, and go to state 19
+    NOT        shift, and go to state 77
+
+    fun_app  go to state 30
+    bool     go to state 128
+    exp      go to state 79
+
+
+State 118
+
+   62 bool: bool OR $@5 . bool
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 76
+    MOINS      shift, and go to state 19
+    NOT        shift, and go to state 77
+
+    fun_app  go to state 30
+    bool     go to state 129
+    exp      go to state 79
+
+
+State 119
+
+   55 bool: exp INF exp .
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    PLUS   shift, and go to state 59
+    MOINS  shift, and go to state 60
+    STAR   shift, and go to state 61
+    DIV    shift, and go to state 62
+
+    $default  reduce using rule 55 (bool)
+
+
+State 120
+
+   57 bool: exp EQUAL exp .
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    PLUS   shift, and go to state 59
+    MOINS  shift, and go to state 60
+    STAR   shift, and go to state 61
+    DIV    shift, and go to state 62
+
+    $default  reduce using rule 57 (bool)
+
+
+State 121
+
+   56 bool: exp SUP exp .
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    PLUS   shift, and go to state 59
+    MOINS  shift, and go to state 60
+    STAR   shift, and go to state 61
+    DIV    shift, and go to state 62
+
+    $default  reduce using rule 56 (bool)
+
+
+State 122
+
+   58 bool: exp DIFF exp .
+   66 exp: exp . PLUS exp
+   67    | exp . MOINS exp
+   68    | exp . STAR exp
+   69    | exp . DIV exp
+
+    PLUS   shift, and go to state 59
+    MOINS  shift, and go to state 60
+    STAR   shift, and go to state 61
+    DIV    shift, and go to state 62
+
+    $default  reduce using rule 58 (bool)
+
+
+State 123
+
+   38 loop: do AO block AF WHILE . PO bool PF PV
+
+    PO  shift, and go to state 130
+
+
+State 124
+
+   51 cond: if bool_cond inst else inst .
+
+    $default  reduce using rule 51 (cond)
+
+
+State 125
+
+   45 arglist: ID $@3 VIR arglist .
+
+    $default  reduce using rule 45 (arglist)
+
+
+State 126
+
+   23 param_list: param_list vir type . ID
+
+    ID  shift, and go to state 131
+
+
+State 127
+
+   37 loop: while PO bool PF DO $@2 . AO block AF
+
+    AO  shift, and go to state 132
+
+
+State 128
+
+   60 bool: bool . AND $@4 bool
+   60     | bool AND $@4 bool .
+   62     | bool . OR $@5 bool
+
+    $default  reduce using rule 60 (bool)
+
+
+State 129
+
+   60 bool: bool . AND $@4 bool
+   62     | bool . OR $@5 bool
+   62     | bool OR $@5 bool .
+
+    AND  shift, and go to state 100
+
+    $default  reduce using rule 62 (bool)
+
+
+State 130
+
+   38 loop: do AO block AF WHILE PO . bool PF PV
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 39
+    PO         shift, and go to state 76
+    MOINS      shift, and go to state 19
+    NOT        shift, and go to state 77
+
+    fun_app  go to state 30
+    bool     go to state 133
+    exp      go to state 79
+
+
+State 131
+
+   23 param_list: param_list vir type ID .
+
+    $default  reduce using rule 23 (param_list)
+
+
+State 132
+
+   37 loop: while PO bool PF DO $@2 AO . block AF
+
+    CONSTANTI  shift, and go to state 6
+    CONSTANTF  shift, and go to state 7
+    ID         shift, and go to state 8
+    IF         shift, and go to state 9
+    INT        shift, and go to state 10
+    FLOAT      shift, and go to state 11
+    VOID       shift, and go to state 12
+    PV         shift, and go to state 13
+    AO         shift, and go to state 14
+    PO         shift, and go to state 15
+    DO         shift, and go to state 16
+    WHILE      shift, and go to state 17
+    RETURN     shift, and go to state 18
+    MOINS      shift, and go to state 19
+
+    $default  reduce using rule 7 (block)
+
+    block     go to state 134
+    decl      go to state 21
+    var_decl  go to state 22
+    fun_decl  go to state 23
+    type      go to state 24
+    typename  go to state 25
+    inst      go to state 26
+    loop      go to state 27
+    while     go to state 28
+    do        go to state 29
+    fun_app   go to state 30
+    aff       go to state 31
+    ret       go to state 32
+    cond      go to state 33
+    if        go to state 34
+    exp       go to state 35
+
+
+State 133
+
+   38 loop: do AO block AF WHILE PO bool . PF PV
+   60 bool: bool . AND $@4 bool
+   62     | bool . OR $@5 bool
+
+    PF   shift, and go to state 135
+    AND  shift, and go to state 100
+    OR   shift, and go to state 101
+
+
+State 134
+
+   37 loop: while PO bool PF DO $@2 AO block . AF
+
+    AF  shift, and go to state 136
+
+
+State 135
+
+   38 loop: do AO block AF WHILE PO bool PF . PV
+
+    PV  shift, and go to state 137
+
+
+State 136
+
+   37 loop: while PO bool PF DO $@2 AO block AF .
+
+    $default  reduce using rule 37 (loop)
+
+
+State 137
+
+   38 loop: do AO block AF WHILE PO bool PF PV .
+
+    $default  reduce using rule 38 (loop)
